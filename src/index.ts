@@ -17,7 +17,7 @@ logger.info(figlet.textSync('Conventional Commits'));
     if (result.commit) {
       logger.success('Commit successful!');
     } else {
-      logger.warn('Commit not created!');
+      logger.warning('Commit not created!');
     }
   } catch (error) {
     logger.error('Commit failed!');

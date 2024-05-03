@@ -67,7 +67,7 @@ export const getInput = (): Promise<Input> =>
     {
       type: 'confirm',
       name: 'isConfirmed',
-      message: (_, values) => `Use this message "${colorize(createCommitMessage(values as Commit), 'warn')}"?:`,
+      message: (_, values) => `Use this message "${colorize(createCommitMessage(values as Commit), 'warning')}"?:`,
       initial: true,
     },
   ]);
