@@ -22,7 +22,7 @@ logger.info(figlet.textSync('Conventional Commits'));
   } catch (error) {
     logger.error('Commit failed!');
     if (error instanceof Error) {
-      logger.error(error.message);
+      logger.default(error.message);
     }
   }
 })();

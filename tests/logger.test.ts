@@ -8,6 +8,7 @@ type LoggerTestCase = {
 };
 
 const loggerTestCases: LoggerTestCase[] = [
+  { function: 'default', value: 'This is default!', expected: 'This is default!' },
   { function: 'info', value: 'This is an info!', expected: 'This is an info!' },
   { function: 'success', value: 'This is a success!', expected: 'This is a success!' },
   { function: 'warn', value: 'This is a warn!', expected: 'This is a warn!' },
