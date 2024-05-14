@@ -1,8 +1,18 @@
 {
-  "name": "conventional-commits",
-  "type": "module",
+  "name": "@rkulik/conventional-commits",
   "version": "1.0.0",
   "description": "Conventional Commits CLI",
+  "keywords": [
+    "conventional-commits",
+    "cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rkulik/conventional-commits.git"
+  },
+  "license": "MIT",
+  "author": "René Kulik <rene@kulik.io> (https://www.kulik.io/)",
+  "type": "module",
   "main": "build/index.js",
   "bin": {
     "conventional-commits": "build/index.js"
@@ -12,16 +22,6 @@
     "lint": "eslint . --ext .ts",
     "test": "NODE_OPTIONS=--experimental-vm-modules node_modules/jest/bin/jest.js --silent"
   },
-  "keywords": [
-    "conventional commits",
-    "cli"
-  ],
-  "author": {
-    "name": "René Kulik",
-    "email": "rene@kulik.io",
-    "url": "https://www.kulik.io/"
-  },
-  "license": "MIT",
   "dependencies": {
     "chalk": "^5.3.0",
     "figlet": "^1.7.0",
@@ -46,5 +46,9 @@
     "ts-jest": "^29.1.2",
     "ts-jest-resolver": "^2.0.1",
     "typescript": "^5.4.5"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/rkulik/conventional-commits/issues"
+  },
+  "homepage": "https://github.com/rkulik/conventional-commits#readme"
 }
