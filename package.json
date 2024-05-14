@@ -20,6 +20,12 @@
   "engines": {
     "node": ">=20"
   },
+  "files": [
+    "README.md",
+    "package.json",
+    "LICENSE",
+    "build"
+  ],
   "scripts": {
     "build": "npx tsc",
     "lint": "eslint . --ext .ts",
