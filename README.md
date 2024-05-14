@@ -6,26 +6,16 @@ CLI to create [conventional commits](https://www.conventionalcommits.org/).
   <img src="./media/conventional-commits-workflow.gif" alt="Conventional Commits worklow">
 </div>
 
-## Setup
+## Install
 
-Install dependencies:
 ```bash
-npm i
-```
-
-Build:
-```bash
-npm run build
-```
-
-Install the package globally:
-```bash
-npm i -g .
+npm install -g @rkulik/conventional-commits
 ```
 
 ## Usage
 
-After the setup, execute the following command:
+After the installation, execute the following command:
+
 ```bash
 conventional-commits
 ```
