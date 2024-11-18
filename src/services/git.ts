@@ -1,4 +1,4 @@
-import { simpleGit } from 'simple-git';
+import { CommitResult, Response, simpleGit } from 'simple-git';
 
 const git = simpleGit();
 
@@ -9,9 +9,11 @@ export type Commit = {
   description: string;
 };
 
-export const commit = (message: string) => git.commit(message);
+export const commit = (message: string): Response<CommitResult> => {
+  return git.commit(message);
+};
 
-export const createCommitMessage = (commitInput: Commit) => {
+export const createCommitMessage = (commitInput: Commit): string => {
   const { type, scope, isBreakingChange, description } = commitInput;
 
   return scope.length

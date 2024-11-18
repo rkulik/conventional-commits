@@ -1,12 +1,13 @@
 #! /usr/bin/env node
 import figlet from 'figlet';
+
 import { getInput, isConfirmed } from './services/cli.js';
 import { commit, createCommitMessage, isCommit } from './services/git.js';
 import { logger } from './services/logger.js';
 
 logger.info(figlet.textSync('Conventional Commits'));
 
-(async () => {
+(async (): Promise<void> => {
   const input = await getInput();
   if (!isConfirmed(input) || !isCommit(input)) {
     return;

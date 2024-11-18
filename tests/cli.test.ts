@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals';
 import { MockSTDIN, stdin as mockStdin } from 'mock-stdin';
+
 import { getInput, isConfirmed } from '../src/services/cli.js';
 
 const keyMap = {
@@ -8,7 +9,11 @@ const keyMap = {
   escape: '\x1b',
 };
 
-const delay = (milliseconds: number) => new Promise(resolve => setTimeout(resolve, milliseconds));
+const delay = (milliseconds: number): Promise<unknown> => {
+  return new Promise(resolve => {
+    return setTimeout(resolve, milliseconds);
+  });
+};
 
 describe('cli', () => {
   let stdin: MockSTDIN;
@@ -22,7 +27,7 @@ describe('cli', () => {
   });
 
   it('gets all inputs', async () => {
-    const sendKeystrokes = async () => {
+    const sendKeystrokes = async (): Promise<void> => {
       // type
       stdin.send(keyMap.down);
       stdin.send(keyMap.down);
@@ -57,7 +62,7 @@ describe('cli', () => {
   });
 
   it('aborts the input process', async () => {
-    const sendKeystrokes = async () => {
+    const sendKeystrokes = async (): Promise<void> => {
       stdin.send(keyMap.escape);
     };
 

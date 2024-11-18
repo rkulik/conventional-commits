@@ -1,13 +1,16 @@
 import prompts from 'prompts';
+
 import { Commit, createCommitMessage } from './git.js';
 import { colorize } from './logger.js';
 
 type Input = Partial<Commit> & { isConfirmed?: boolean };
 
-export const isConfirmed = (input: Input) => !!input.isConfirmed;
+export const isConfirmed = (input: Input): boolean => {
+  return !!input.isConfirmed;
+};
 
-export const getInput = (): Promise<Input> =>
-  prompts([
+export const getInput = (): Promise<Input> => {
+  return prompts([
     {
       type: 'select',
       name: 'type',
@@ -49,7 +52,9 @@ export const getInput = (): Promise<Input> =>
       type: 'text',
       name: 'scope',
       message: 'Scope (optional):',
-      format: (value: string) => value.trim(),
+      format: (value: string): string => {
+        return value.trim();
+      },
     },
     {
       type: 'confirm',
@@ -61,13 +66,20 @@ export const getInput = (): Promise<Input> =>
       type: 'text',
       name: 'description',
       message: 'Description:',
-      validate: (value: string) => !!value.trim().length,
-      format: (value: string) => value.trim(),
+      validate: (value: string): boolean => {
+        return !!value.trim().length;
+      },
+      format: (value: string): string => {
+        return value.trim();
+      },
     },
     {
       type: 'confirm',
       name: 'isConfirmed',
-      message: (_, values) => `Use this message "${colorize(createCommitMessage(values as Commit), 'warning')}"?:`,
+      message: (_, values): string => {
+        return `Use this message "${colorize(createCommitMessage(values as Commit), 'warning')}"?:`;
+      },
       initial: true,
     },
   ]);
+};
