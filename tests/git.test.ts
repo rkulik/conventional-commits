@@ -16,7 +16,7 @@ describe('git', () => {
       commit: { type: 'feat', scope: '', isBreakingChange: false, description: 'some description' },
       expected: 'feat: some description',
     },
-  ])('creates a commit message: "$expected"', testCase => {
+  ])('creates a commit message: "$expected"', (testCase) => {
     expect(createCommitMessage(testCase.commit)).toBe(testCase.expected);
   });
 
@@ -32,7 +32,7 @@ describe('git', () => {
     { commit: { scope: 'some-scope', isBreakingChange: false, description: 'some-description' }, expected: false },
     { commit: 'not a commit', expected: false },
     { commit: 1, expected: false },
-  ])('validates a commit: $commit', testCase => {
+  ])('validates a commit: $commit', (testCase) => {
     expect(isCommit(testCase.commit)).toBe(testCase.expected);
   });
 });

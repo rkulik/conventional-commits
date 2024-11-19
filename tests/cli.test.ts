@@ -10,7 +10,7 @@ const keyMap = {
 };
 
 const delay = (milliseconds: number): Promise<unknown> => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     return setTimeout(resolve, milliseconds);
   });
 };
@@ -76,7 +76,7 @@ describe('cli', () => {
     { input: { isConfirmed: true }, expected: true },
     { input: { isConfirmed: false }, expected: false },
     { input: {}, expected: false },
-  ])('checks the confirmed state: $input', testCase => {
+  ])('checks the confirmed state: $input', (testCase) => {
     expect(isConfirmed(testCase.input)).toBe(testCase.expected);
   });
 });
