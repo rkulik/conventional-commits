@@ -42,7 +42,7 @@
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@jest/globals": "^29.7.0",
-    "@rkulik/eslint-config": "^1.0.0",
+    "@rkulik/eslint-config": "^1.1.0",
     "@types/figlet": "^1.7.0",
     "@types/node": "^22.9.0",
     "@types/prompts": "^2.4.9",
