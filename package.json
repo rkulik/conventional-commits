@@ -17,6 +17,7 @@
   "bin": {
     "conventional-commits": "build/index.js"
   },
+  "packageManager": "npm@10.9.0",
   "files": [
     "README.md",
     "package.json",
