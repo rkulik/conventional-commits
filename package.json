@@ -17,9 +17,6 @@
   "bin": {
     "conventional-commits": "build/index.js"
   },
-  "engines": {
-    "node": ">=20"
-  },
   "files": [
     "README.md",
     "package.json",
