@@ -1,6 +1,7 @@
 import { getInput, isConfirmed } from '@app/services/cli.js';
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals';
-import { MockSTDIN, stdin as mockStdin } from 'mock-stdin';
+import type { MockSTDIN } from 'mock-stdin';
+import { stdin as mockStdin } from 'mock-stdin';
 
 const keyMap = {
   down: '\x1B\x5B\x42',
@@ -48,7 +49,9 @@ describe('cli', () => {
       stdin.send(keyMap.enter);
     };
 
-    setTimeout(sendKeystrokes, 5);
+    setTimeout(() => {
+      void sendKeystrokes();
+    }, 5);
 
     const result = await getInput();
     expect(result).toEqual({
@@ -61,7 +64,7 @@ describe('cli', () => {
   });
 
   it('aborts the input process', async () => {
-    const sendKeystrokes = async (): Promise<void> => {
+    const sendKeystrokes = (): void => {
       stdin.send(keyMap.escape);
     };
 

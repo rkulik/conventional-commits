@@ -1,23 +1,27 @@
 {
   "name": "@rkulik/conventional-commits",
+  "type": "module",
   "version": "1.2.0",
+  "packageManager": "npm@10.9.0",
   "description": "Conventional Commits CLI",
-  "keywords": [
-    "conventional-commits",
-    "cli"
-  ],
+  "author": "René Kulik <rene@kulik.io> (https://www.kulik.io/)",
+  "license": "MIT",
+  "homepage": "https://github.com/rkulik/conventional-commits#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rkulik/conventional-commits.git"
   },
-  "license": "MIT",
-  "author": "René Kulik <rene@kulik.io> (https://www.kulik.io/)",
-  "type": "module",
+  "bugs": {
+    "url": "https://github.com/rkulik/conventional-commits/issues"
+  },
+  "keywords": [
+    "conventional-commits",
+    "cli"
+  ],
   "main": "dist/index.js",
   "bin": {
     "conventional-commits": "dist/index.js"
   },
-  "packageManager": "npm@10.9.0",
   "files": [
     "dist"
   ],
@@ -39,7 +43,7 @@
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
     "@jest/globals": "^29.7.0",
-    "@rkulik/eslint-config": "^1.2.0",
+    "@rkulik/eslint-config": "^1.5.0",
     "@rkulik/prettier-config": "^1.1.0",
     "@types/figlet": "^1.7.0",
     "@types/node": "^22.9.1",
@@ -53,9 +57,5 @@
     "tsup": "^8.4.0",
     "typescript": "^5.6.3"
   },
-  "bugs": {
-    "url": "https://github.com/rkulik/conventional-commits/issues"
-  },
-  "homepage": "https://github.com/rkulik/conventional-commits#readme",
   "prettier": "@rkulik/prettier-config"
 }

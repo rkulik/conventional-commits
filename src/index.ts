@@ -6,7 +6,7 @@ import figlet from 'figlet';
 
 logger.info(figlet.textSync('Conventional Commits'));
 
-(async (): Promise<void> => {
+void (async (): Promise<void> => {
   const input = await getInput();
   if (!isConfirmed(input) || !isCommit(input)) {
     return;

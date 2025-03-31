@@ -1,4 +1,5 @@
-import { Commit, createCommitMessage } from '@app/services/git.js';
+import type { Commit } from '@app/services/git.js';
+import { createCommitMessage } from '@app/services/git.js';
 import { colorize } from '@app/services/logger.js';
 import prompts from 'prompts';
 
