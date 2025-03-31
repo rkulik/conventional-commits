@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./build",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "paths": {
+      "@app/*": ["./src/*"],
+      "@test/*": ["./test/*"]
+    },
     "target": "ESNext",
     "module": "NodeNext",
     "moduleResolution": "nodenext",
@@ -10,8 +14,4 @@
     "strict": true,
     "skipLibCheck": true,
   },
-  "exclude": [
-    "node_modules",
-    "tests"
-  ],
 }

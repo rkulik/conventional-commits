@@ -1,7 +1,6 @@
+import { Commit, createCommitMessage } from '@app/services/git.js';
+import { colorize } from '@app/services/logger.js';
 import prompts from 'prompts';
-
-import { Commit, createCommitMessage } from './git.js';
-import { colorize } from './logger.js';
 
 type Input = Partial<Commit> & { isConfirmed?: boolean };
 

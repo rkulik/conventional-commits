@@ -1,7 +1,6 @@
+import { getInput, isConfirmed } from '@app/services/cli.js';
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals';
 import { MockSTDIN, stdin as mockStdin } from 'mock-stdin';
-
-import { getInput, isConfirmed } from '../src/services/cli.js';
 
 const keyMap = {
   down: '\x1B\x5B\x42',

@@ -1,6 +1,5 @@
+import { checkExhaustiveness } from '@app/utils/check-exhaustiveness.js';
 import chalk from 'chalk';
-
-import { checkExhaustiveness } from '../utils/check-exhaustiveness.js';
 
 type Status = 'info' | 'success' | 'warning' | 'error';
 

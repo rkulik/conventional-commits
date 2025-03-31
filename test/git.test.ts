@@ -1,6 +1,5 @@
+import { createCommitMessage, isCommit } from '@app/services/git.js';
 import { describe, expect, it } from '@jest/globals';
-
-import { createCommitMessage, isCommit } from '../src/services/git';
 
 describe('git', () => {
   it.each([

@@ -1,6 +1,5 @@
+import { logger } from '@app/services/logger.js';
 import { describe, expect, it, jest } from '@jest/globals';
-
-import { logger } from '../src/services/logger';
 
 type LoggerTestCase = {
   function: keyof typeof logger;

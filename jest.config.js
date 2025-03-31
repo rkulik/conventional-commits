@@ -6,6 +6,11 @@ export default {
   resolver: 'ts-jest-resolver',
   testEnvironment: 'node',
   extensionsToTreatAsEsm: ['.ts'],
+  roots: ['<rootDir>/test'],
+  moduleNameMapper: {
+    '^@app/(.*)$': '<rootDir>/src/$1',
+    '^@test/(.*)$': '<rootDir>/test/$1',
+  },
   transform: {
     '^.+\\.ts?$': ['ts-jest', { useESM: true }],
   },
