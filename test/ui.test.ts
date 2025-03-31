@@ -1,4 +1,4 @@
-import { getInput, isConfirmed } from '@app/services/cli.js';
+import { getInput, isConfirmed } from '@app/services/ui.js';
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals';
 import type { MockSTDIN } from 'mock-stdin';
 import { stdin as mockStdin } from 'mock-stdin';
@@ -15,7 +15,7 @@ const delay = (milliseconds: number): Promise<unknown> => {
   });
 };
 
-describe('cli', () => {
+describe('ui', () => {
   let stdin: MockSTDIN;
 
   beforeEach(() => {

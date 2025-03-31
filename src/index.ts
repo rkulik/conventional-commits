@@ -1,7 +1,7 @@
 #! /usr/bin/env node
-import { getInput, isConfirmed } from '@app/services/cli.js';
 import { commit, createCommitMessage, isCommit } from '@app/services/git.js';
 import { logger } from '@app/services/logger.js';
+import { getInput, isConfirmed } from '@app/services/ui.js';
 import figlet from 'figlet';
 
 logger.info(figlet.textSync('Conventional Commits'));
