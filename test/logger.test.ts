@@ -16,7 +16,7 @@ const loggerTestCases: LoggerTestCase[] = [
 ];
 
 describe('logger', () => {
-  it.each(loggerTestCases)('logs a given value: "$value"', (testCase) => {
+  it.each(loggerTestCases)('should log a given value: "$value"', (testCase) => {
     const consoleLogSpy = jest.spyOn(console, 'log');
     logger[testCase.function](testCase.value);
     expect(consoleLogSpy).toHaveBeenCalledWith(testCase.expected);

@@ -1,85 +1,63 @@
-import type { Commit } from '@app/services/git.js';
-import { createCommitMessage } from '@app/services/git.js';
-import { colorize } from '@app/services/logger.js';
-import prompts from 'prompts';
+import { createCommitMessage, type Commit } from '@app/services/git.js';
+import { logger } from '@app/services/logger.js';
+import { confirm, editor, input, select } from '@inquirer/prompts';
 
-type Input = Partial<Commit> & { isConfirmed?: boolean };
+export const configureCommit = async (): Promise<Commit> => {
+  const type = await select({
+    message: 'Type:',
+    choices: [
+      {
+        name: 'build',
+        value: 'build',
+        description:
+          'Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)',
+      },
+      { name: 'chore', value: 'chore', description: 'Other changes that do not modify src or test files' },
+      {
+        name: 'ci',
+        value: 'ci',
+        description:
+          'Changes to the CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)',
+      },
+      { name: 'docs', value: 'docs', description: 'Documentation only changes' },
+      { name: 'feat', value: 'feat', description: 'A new feature' },
+      { name: 'fix', value: 'fix', description: 'A bug fix' },
+      { name: 'perf', value: 'perf', description: 'A code change that improves performance' },
+      {
+        name: 'refactor',
+        value: 'refactor',
+        description: 'A code change that neither fixes a bug nor adds a feature',
+      },
+      { name: 'revert', value: 'revert', description: 'Reverts a previous commit' },
+      {
+        name: 'style',
+        value: 'style',
+        description:
+          'Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc.)',
+      },
+      { name: 'test', value: 'test', description: 'Adding missing tests or correcting existing tests' },
+    ],
+  });
 
-export const isConfirmed = (input: Input): boolean => {
-  return !!input.isConfirmed;
+  const scope = await input({ message: 'Scope (optional):' });
+
+  const description = await input({ message: 'Description:', required: true });
+
+  const isBreakingChange = await confirm({ message: 'Is this a breaking change?:', default: false });
+
+  const isBodyDesired = await confirm({ message: 'Do you want to add a body?', default: false });
+
+  const body = isBodyDesired ? await editor({ message: 'Body', waitForUseInput: false }) : '';
+
+  const isFooterDesired = await confirm({ message: 'Do you want to add a footer?', default: false });
+
+  const footer = isFooterDesired ? await editor({ message: 'Footer', waitForUseInput: false }) : '';
+
+  return { type, scope, description, isBreakingChange, body, footer };
 };
 
-export const getInput = (): Promise<Input> => {
-  return prompts([
-    {
-      type: 'select',
-      name: 'type',
-      message: 'Type:',
-      choices: [
-        {
-          title: 'build',
-          value: 'build',
-          description:
-            'Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)',
-        },
-        { title: 'chore', value: 'chore', description: 'Other changes that do not modify src or test files' },
-        {
-          title: 'ci',
-          value: 'ci',
-          description:
-            'Changes to the CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)',
-        },
-        { title: 'docs', value: 'docs', description: 'Documentation only changes' },
-        { title: 'feat', value: 'feat', description: 'A new feature' },
-        { title: 'fix', value: 'fix', description: 'A bug fix' },
-        { title: 'perf', value: 'perf', description: 'A code change that improves performance' },
-        {
-          title: 'refactor',
-          value: 'refactor',
-          description: 'A code change that neither fixes a bug nor adds a feature',
-        },
-        { title: 'revert', value: 'revert', description: 'Reverts a previous commit' },
-        {
-          title: 'style',
-          value: 'style',
-          description:
-            'Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc.)',
-        },
-        { title: 'test', value: 'test', description: 'Adding missing tests or correcting existing tests' },
-      ],
-    },
-    {
-      type: 'text',
-      name: 'scope',
-      message: 'Scope (optional):',
-      format: (value: string): string => {
-        return value.trim();
-      },
-    },
-    {
-      type: 'confirm',
-      name: 'isBreakingChange',
-      message: 'Is this a breaking change?:',
-      initial: false,
-    },
-    {
-      type: 'text',
-      name: 'description',
-      message: 'Description:',
-      validate: (value: string): boolean => {
-        return !!value.trim().length;
-      },
-      format: (value: string): string => {
-        return value.trim();
-      },
-    },
-    {
-      type: 'confirm',
-      name: 'isConfirmed',
-      message: (_, values): string => {
-        return `Use this message "${colorize(createCommitMessage(values as Commit), 'warning')}"?:`;
-      },
-      initial: true,
-    },
-  ]);
+export const confirmCommit = (commit: Commit): Promise<boolean> => {
+  logger.warning(createCommitMessage(commit));
+
+  return confirm({ message: 'Use this message?:' });
 };

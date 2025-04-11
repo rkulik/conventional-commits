@@ -1,4 +1,4 @@
-import { getInput, isConfirmed } from '@app/services/ui.js';
+import { configureCommit, confirmCommit } from '@app/services/ui.js';
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals';
 import type { MockSTDIN } from 'mock-stdin';
 import { stdin as mockStdin } from 'mock-stdin';
@@ -6,10 +6,9 @@ import { stdin as mockStdin } from 'mock-stdin';
 const keyMap = {
   down: '\x1B\x5B\x42',
   enter: '\x0D',
-  escape: '\x1b',
 };
 
-const delay = (milliseconds: number): Promise<unknown> => {
+const delay = (milliseconds: number): Promise<void> => {
   return new Promise((resolve) => {
     return setTimeout(resolve, milliseconds);
   });
@@ -26,7 +25,7 @@ describe('ui', () => {
     stdin.restore();
   });
 
-  it('gets all inputs', async () => {
+  it('should configure a commit', async () => {
     const sendKeystrokes = async (): Promise<void> => {
       // type
       stdin.send(keyMap.down);
@@ -34,51 +33,77 @@ describe('ui', () => {
       stdin.send(keyMap.enter);
       await delay(10);
       // scope
-      stdin.send('some-scope');
+      stdin.send('some scope');
       stdin.send(keyMap.enter);
-      await delay(10);
-      // isBreakingChange
-      stdin.send('y');
       await delay(10);
       // description
       stdin.send('some description');
       stdin.send(keyMap.enter);
       await delay(10);
-      // isConfirmed
+      // isBreakingChange
+      stdin.send('y');
+      stdin.send(keyMap.enter);
+      await delay(10);
+      // body
       stdin.send('n');
       stdin.send(keyMap.enter);
+      await delay(10);
+      // footer
+      stdin.send('n');
+      stdin.send(keyMap.enter);
+      await delay(10);
     };
 
     setTimeout(() => {
       void sendKeystrokes();
     }, 5);
 
-    const result = await getInput();
-    expect(result).toEqual({
+    const configuredCommit = await configureCommit();
+    expect(configuredCommit).toEqual({
       type: 'ci',
-      scope: 'some-scope',
-      isBreakingChange: true,
+      scope: 'some scope',
       description: 'some description',
-      isConfirmed: false,
+      isBreakingChange: true,
+      body: '',
+      footer: '',
     });
   });
 
-  it('aborts the input process', async () => {
+  it('should confirm a commit', async () => {
     const sendKeystrokes = (): void => {
-      stdin.send(keyMap.escape);
+      stdin.send(keyMap.enter);
     };
 
     setTimeout(sendKeystrokes, 5);
 
-    const result = await getInput();
-    expect(result).toEqual({});
+    expect(
+      await confirmCommit({
+        type: 'feat',
+        scope: 'some-scope',
+        isBreakingChange: true,
+        description: 'some description',
+        body: 'some body',
+        footer: 'some footer',
+      }),
+    ).toBe(true);
   });
 
-  it.each([
-    { input: { isConfirmed: true }, expected: true },
-    { input: { isConfirmed: false }, expected: false },
-    { input: {}, expected: false },
-  ])('checks the confirmed state: $input', (testCase) => {
-    expect(isConfirmed(testCase.input)).toBe(testCase.expected);
+  it('should deny a commit', async () => {
+    const sendKeystrokes = (): void => {
+      stdin.send('n');
+      stdin.send(keyMap.enter);
+    };
+
+    setTimeout(sendKeystrokes, 5);
+    expect(
+      await confirmCommit({
+        type: 'feat',
+        scope: 'some-scope',
+        isBreakingChange: true,
+        description: 'some description',
+        body: 'some body',
+        footer: 'some footer',
+      }),
+    ).toBe(false);
   });
 });
