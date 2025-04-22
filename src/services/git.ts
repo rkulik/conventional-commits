@@ -12,10 +12,6 @@ export type Commit = {
   footer: string;
 };
 
-export const commit = (message: string): Response<CommitResult> => {
-  return git.commit(message);
-};
-
 export const createCommitMessage = (commit: Commit): string => {
   const { type, scope, isBreakingChange, description, body, footer } = commit;
 
@@ -28,4 +24,8 @@ export const createCommitMessage = (commit: Commit): string => {
   const footerSection = footer ? `${emptyLine}${footer.trim()}` : '';
 
   return `${descriptionSection}${bodySection}${footerSection}`;
+};
+
+export const commit = (message: string): Response<CommitResult> => {
+  return git.commit(message);
 };
