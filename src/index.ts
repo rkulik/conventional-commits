@@ -26,9 +26,6 @@ const main = async (): Promise<void> => {
     }
 
     logger.error('Commit failed!');
-    if (isErrorInstance) {
-      logger.default(error.message);
-    }
   }
 };
 

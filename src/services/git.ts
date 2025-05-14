@@ -1,7 +1,10 @@
 import type { CommitResult, Response } from 'simple-git';
 import { simpleGit } from 'simple-git';
 
-const git = simpleGit();
+const git = simpleGit().outputHandler((_command, stdout, stderr) => {
+  stdout.pipe(process.stdout);
+  stderr.pipe(process.stderr);
+});
 
 export type Commit = {
   type: string;
