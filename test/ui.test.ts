@@ -40,10 +40,6 @@ describe('ui', () => {
       stdin.send('some description');
       stdin.send(keyMap.enter);
       await delay(10);
-      // isBreakingChange
-      stdin.send('y');
-      stdin.send(keyMap.enter);
-      await delay(10);
       // body
       stdin.send('n');
       stdin.send(keyMap.enter);
@@ -52,6 +48,9 @@ describe('ui', () => {
       stdin.send('n');
       stdin.send(keyMap.enter);
       await delay(10);
+      // isBreakingChange
+      stdin.send('y');
+      stdin.send(keyMap.enter);
     };
 
     setTimeout(() => {
@@ -63,9 +62,9 @@ describe('ui', () => {
       type: 'ci',
       scope: 'some scope',
       description: 'some description',
-      isBreakingChange: true,
       body: '',
       footer: '',
+      isBreakingChange: true,
     });
   });
 
@@ -80,10 +79,10 @@ describe('ui', () => {
       await confirmCommit({
         type: 'feat',
         scope: 'some-scope',
-        isBreakingChange: true,
         description: 'some description',
         body: 'some body',
         footer: 'some footer',
+        isBreakingChange: true,
       }),
     ).toBe(true);
   });
@@ -99,10 +98,10 @@ describe('ui', () => {
       await confirmCommit({
         type: 'feat',
         scope: 'some-scope',
-        isBreakingChange: true,
         description: 'some description',
         body: 'some body',
         footer: 'some footer',
+        isBreakingChange: true,
       }),
     ).toBe(false);
   });

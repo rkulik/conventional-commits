@@ -9,14 +9,14 @@ const git = simpleGit().outputHandler((_command, stdout, stderr) => {
 export type Commit = {
   type: string;
   scope: string;
-  isBreakingChange: boolean;
   description: string;
   body: string;
   footer: string;
+  isBreakingChange: boolean;
 };
 
 export const createCommitMessage = (commit: Commit): string => {
-  const { type, scope, isBreakingChange, description, body, footer } = commit;
+  const { type, scope, description, body, footer, isBreakingChange } = commit;
 
   const emptyLine = `
 

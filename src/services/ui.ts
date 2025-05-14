@@ -43,8 +43,6 @@ export const configureCommit = async (): Promise<Commit> => {
 
   const description = await input({ message: 'Description:', required: true });
 
-  const isBreakingChange = await confirm({ message: 'Is this a breaking change?:', default: false });
-
   const isBodyDesired = await confirm({ message: 'Do you want to add a body?', default: false });
 
   const body = isBodyDesired ? await editor({ message: 'Body', waitForUseInput: false }) : '';
@@ -53,7 +51,9 @@ export const configureCommit = async (): Promise<Commit> => {
 
   const footer = isFooterDesired ? await editor({ message: 'Footer', waitForUseInput: false }) : '';
 
-  return { type, scope, description, isBreakingChange, body, footer };
+  const isBreakingChange = await confirm({ message: 'Is this a breaking change?:', default: false });
+
+  return { type, scope, description, body, footer, isBreakingChange };
 };
 
 export const confirmCommit = (commit: Commit): Promise<boolean> => {

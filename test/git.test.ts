@@ -7,10 +7,10 @@ describe('git', () => {
       commit: {
         type: 'feat',
         scope: 'some-scope',
-        isBreakingChange: true,
         description: 'some description',
         body: '',
         footer: '',
+        isBreakingChange: true,
       },
       expected: 'feat(some-scope)!: some description',
     },
@@ -18,10 +18,10 @@ describe('git', () => {
       commit: {
         type: 'feat',
         scope: '',
-        isBreakingChange: true,
         description: 'some description',
         body: '',
         footer: '',
+        isBreakingChange: true,
       },
       expected: 'feat!: some description',
     },
@@ -29,10 +29,10 @@ describe('git', () => {
       commit: {
         type: 'feat',
         scope: '',
-        isBreakingChange: false,
         description: 'some description',
         body: '',
         footer: '',
+        isBreakingChange: false,
       },
       expected: 'feat: some description',
     },
@@ -40,10 +40,10 @@ describe('git', () => {
       commit: {
         type: 'feat',
         scope: '',
-        isBreakingChange: false,
         description: 'some description',
         body: 'some body',
         footer: '',
+        isBreakingChange: false,
       },
       expected: `feat: some description
 
@@ -53,10 +53,10 @@ some body`,
       commit: {
         type: 'feat',
         scope: '',
-        isBreakingChange: false,
         description: 'some description',
         body: '',
         footer: 'some footer',
+        isBreakingChange: false,
       },
       expected: `feat: some description
 
@@ -66,10 +66,10 @@ some footer`,
       commit: {
         type: 'feat',
         scope: '',
-        isBreakingChange: false,
         description: 'some description',
         body: 'some body',
         footer: 'some footer',
+        isBreakingChange: false,
       },
       expected: `feat: some description
 
@@ -81,7 +81,6 @@ some footer`,
       commit: {
         type: 'feat',
         scope: '',
-        isBreakingChange: false,
         description: 'some description',
         body: `
 some body
@@ -95,6 +94,7 @@ some more footer
         
         
         `,
+        isBreakingChange: false,
       },
       expected: `feat: some description
 
