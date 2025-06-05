@@ -1,6 +1,6 @@
 # Conventional Commits
 
-CLI to create [Conventional Commits](https://www.conventionalcommits.org/).
+CLI to configure [Conventional Commits](https://www.conventionalcommits.org/).
 
 <div align="center">
   <img src="./media/conventional-commits-workflow.gif" alt="Conventional Commits worklow">

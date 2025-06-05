@@ -1,10 +1,4 @@
-import type { CommitResult, Response } from 'simple-git';
-import { simpleGit } from 'simple-git';
-
-const git = simpleGit().outputHandler((_command, stdout, stderr) => {
-  stdout.pipe(process.stdout);
-  stderr.pipe(process.stderr);
-});
+import { quote } from 'shell-quote';
 
 export type Commit = {
   type: string;
@@ -15,20 +9,31 @@ export type Commit = {
   isBreakingChange: boolean;
 };
 
-export const createCommitMessage = (commit: Commit): string => {
-  const { type, scope, description, body, footer, isBreakingChange } = commit;
-
-  const emptyLine = `
-
-`;
-
-  const descriptionSection = `${type}${scope ? `(${scope})` : ''}${isBreakingChange ? '!' : ''}: ${description}`;
-  const bodySection = body ? `${emptyLine}${body.trim()}` : '';
-  const footerSection = footer ? `${emptyLine}${footer.trim()}` : '';
-
-  return `${descriptionSection}${bodySection}${footerSection}`;
+const splitIntoLines = (text: string): string[] => {
+  return text
+    .split(/\n\s*\n/)
+    .map((part) => {
+      return part.trim();
+    })
+    .filter(Boolean);
 };
 
-export const commit = (message: string): Response<CommitResult> => {
-  return git.commit(message);
+export const createCommitCommand = (commit: Commit): string => {
+  const { type, scope, description, body, footer, isBreakingChange } = commit;
+  const trimmedScope = scope.trim();
+  const trimmedDescription = description.trim();
+
+  const header = `${type}${trimmedScope ? `(${trimmedScope})` : ''}${isBreakingChange ? '!' : ''}: ${trimmedDescription}`;
+
+  const commandLines: string[][] = [
+    ['git', 'commit', '-m', header],
+    ...splitIntoLines(body).map((line) => {
+      return ['-m', line];
+    }),
+    ...splitIntoLines(footer).map((line) => {
+      return ['-m', line];
+    }),
+  ];
+
+  return commandLines.map(quote).join(' \\\n  ');
 };

@@ -1,5 +1,4 @@
-import { createCommitMessage, type Commit } from '@app/services/git.js';
-import { logger } from '@app/services/logger.js';
+import { type Commit } from '@app/services/git.js';
 import { confirm, editor, input, select } from '@inquirer/prompts';
 
 export const configureCommit = async (): Promise<Commit> => {
@@ -54,10 +53,4 @@ export const configureCommit = async (): Promise<Commit> => {
   const isBreakingChange = await confirm({ message: 'Is this a breaking change?:', default: false });
 
   return { type, scope, description, body, footer, isBreakingChange };
-};
-
-export const confirmCommit = (commit: Commit): Promise<boolean> => {
-  logger.warning(createCommitMessage(commit));
-
-  return confirm({ message: 'Use this message?:' });
 };

@@ -1,4 +1,4 @@
-import { configureCommit, confirmCommit } from '@app/services/ui.js';
+import { configureCommit } from '@app/services/ui.js';
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals';
 import type { MockSTDIN } from 'mock-stdin';
 import { stdin as mockStdin } from 'mock-stdin';
@@ -66,43 +66,5 @@ describe('ui', () => {
       footer: '',
       isBreakingChange: true,
     });
-  });
-
-  it('should confirm a commit', async () => {
-    const sendKeystrokes = (): void => {
-      stdin.send(keyMap.enter);
-    };
-
-    setTimeout(sendKeystrokes, 5);
-
-    expect(
-      await confirmCommit({
-        type: 'feat',
-        scope: 'some-scope',
-        description: 'some description',
-        body: 'some body',
-        footer: 'some footer',
-        isBreakingChange: true,
-      }),
-    ).toBe(true);
-  });
-
-  it('should deny a commit', async () => {
-    const sendKeystrokes = (): void => {
-      stdin.send('n');
-      stdin.send(keyMap.enter);
-    };
-
-    setTimeout(sendKeystrokes, 5);
-    expect(
-      await confirmCommit({
-        type: 'feat',
-        scope: 'some-scope',
-        description: 'some description',
-        body: 'some body',
-        footer: 'some footer',
-        isBreakingChange: true,
-      }),
-    ).toBe(false);
   });
 });
