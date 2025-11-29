@@ -44,11 +44,11 @@ export const configureCommit = async (): Promise<Commit> => {
 
   const isBodyDesired = await confirm({ message: 'Do you want to add a body?', default: false });
 
-  const body = isBodyDesired ? await editor({ message: 'Body', waitForUseInput: false }) : '';
+  const body = isBodyDesired ? await editor({ message: 'Body', waitForUserInput: false }) : '';
 
   const isFooterDesired = await confirm({ message: 'Do you want to add a footer?', default: false });
 
-  const footer = isFooterDesired ? await editor({ message: 'Footer', waitForUseInput: false }) : '';
+  const footer = isFooterDesired ? await editor({ message: 'Footer', waitForUserInput: false }) : '';
 
   const isBreakingChange = await confirm({ message: 'Is this a breaking change?:', default: false });
 

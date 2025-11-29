@@ -9,6 +9,7 @@
       "@test/*": ["./test/*"]
     },
     "outDir": "dist",
+    "isolatedModules": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
