@@ -1,7 +1,7 @@
 {
   "name": "@rkulik/conventional-commits",
   "type": "module",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "packageManager": "npm@11.4.2",
   "description": "Conventional Commits CLI",
   "author": "René Kulik <rene@kulik.io> (https://www.kulik.io/)",
